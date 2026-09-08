@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demande d’autorisation d’absence — Lycée Ambroise Paré</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">AP</span><div><strong>Lycée Ambroise Paré</strong><small>Gestion des demandes d’absence</small></div></div>
+    <span class="status">Données conservées sur cet appareil</span>
+  </header>
+
+  <main class="layout">
+    <section class="intro">
+      <div class="hero-symbol" aria-hidden="true"><span>AP</span></div>
+      <p class="eyebrow">ESPACE AGENT · ABSENCES</p>
+      <h1>Préparer une demande d’autorisation d’absence</h1>
+      <p><strong>Lycée Ambroise Paré de Laval</strong> — 17 rue du Lycée, 53000 Laval</p>
+      <p>Renseignez votre situation. L’application identifie le régime applicable et prépare le document à transmettre à votre chef de service.</p>
+      <div class="notice"><strong>Application du décret n° 2026-604</strong><span>Le nouveau régime entre en vigueur le 1er janvier 2027. Les justificatifs ne sont pas enregistrés dans l’application.</span></div>
+    </section>
+
+    <nav class="panel-nav" aria-label="Rubriques de l’application">
+      <button type="button" class="panel-button active" data-target="form-panel">Saisir une demande</button>
+      <button type="button" class="panel-button" data-target="guide-panel">Mode d’emploi</button>
+      <button type="button" class="panel-button" data-target="faq-panel">FAQ — décret et lycée</button>
+    </nav>
+
+    <form id="absence-form" class="app-panel" data-panel="form-panel" novalidate>
+      <div class="form-workspace">
+        <aside class="live-summary" aria-label="Synthèse de la demande">
+          <div class="summary-kicker">VOTRE DEMANDE</div>
+          <h2>Synthèse</h2>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <p id="progress-label" class="progress-label">0 % complété</p>
+          <dl>
+            <div><dt>Agent</dt><dd id="summary-agent">À renseigner</dd></div>
+            <div><dt>Profil</dt><dd id="summary-profile">À sélectionner</dd></div>
+            <div><dt>Motif</dt><dd id="summary-motif">À sélectionner</dd></div>
+            <div><dt>Période</dt><dd id="summary-period">À renseigner</dd></div>
+            <div class="summary-duration"><dt>Durée calculée</dt><dd id="summary-duration">—</dd></div>
+          </dl>
+          <div class="privacy-card"><span aria-hidden="true">✓</span><p><strong>Données locales</strong><br>Aucune information n’est transmise en ligne.</p></div>
+        </aside>
+        <div class="form-content">
+      <section class="card">
+        <div class="section-title"><span>1</span><div><h2>Identité et affectation</h2><p>Informations nécessaires à l’instruction de la demande.</p></div></div>
+        <div class="grid two">
+          <label>Nom <input id="nom" required autocomplete="family-name"></label>
+          <label>Prénom <input id="prenom" required autocomplete="given-name"></label>
+          <label>Type de personnel
+            <select id="personnel_type" required>
+              <option value="">Sélectionner</option>
+              <option value="enseignant">Personnel enseignant</option>
+              <option value="autre">Autre personnel</option>
+            </select>
+          </label>
+          <label>Fonction, discipline ou service <input id="fonction" required></label>
+          <label>Employeur <select id="employeur" required><option value="">Sélectionner</option><option>État</option><option>Région Pays de la Loire</option><option>Autre</option></select></label>
+          <label>Téléphone professionnel <input id="telephone" type="tel"></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title"><span>2</span><div><h2>Motif de la demande</h2><p>Choisissez la situation exacte. Les droits affichés s’actualisent automatiquement.</p></div></div>
+        <label>Catégorie d’absence
+          <select id="motif" required>
+            <option value="">Sélectionner un motif</option>
+            <optgroup label="ASA accordées de droit">
+              <option value="mariage">Mariage ou PACS de l’agent</option>
+              <option value="deces_conjoint">Décès du conjoint, partenaire de PACS ou concubin</option>
+              <option value="deces_parent">Décès d’un parent ou d’un proche visé par le décret</option>
+              <option value="annonce_enfant">Annonce d’un handicap, cancer ou pathologie chronique chez l’enfant</option>
+              <option value="deces_enfant">Décès d’un enfant</option>
+              <option value="grossesse_exam">Examen médical obligatoire de grossesse</option>
+              <option value="adoption">Entretien obligatoire du parcours d’agrément pour adoption</option>
+            </optgroup>
+            <optgroup label="ASA soumises aux nécessités de service">
+              <option value="grossesse_heure">Grossesse à compter du troisième mois</option>
+              <option value="garde_enfant">Soins ou garde momentanée d’un enfant</option>
+            </optgroup>
+            <optgroup label="Aménagements horaires">
+              <option value="pma">Actes médicaux nécessaires d’un protocole de PMA</option>
+              <option value="preparation_naissance">Préparation à la naissance et à la parentalité</option>
+              <option value="parent_eleve">Réunion en qualité de représentant de parents d’élèves</option>
+              <option value="rentree">Rentrée scolaire d’un enfant en maternelle ou élémentaire</option>
+              <option value="allaitement">Allaitement pendant l’année suivant la naissance</option>
+            </optgroup>
+            <optgroup label="Hors décret">
+              <option value="convenance">Absence pour convenance personnelle</option>
+            </optgroup>
+          </select>
+        </label>
+        <div id="legal-info" class="legal-info hidden" aria-live="polite"></div>
+        <div id="child-fields" class="grid two hidden">
+          <label>Nom et prénom de l’enfant <input id="enfant_nom"></label>
+          <label>Date de naissance de l’enfant <input id="enfant_naissance" type="date"></label>
+          <label class="check full"><input id="charge_seul" type="checkbox"><span>J’assume seul(e) la charge du ou des enfants.</span></label>
+          <label class="check full"><input id="enfant_handicap" type="checkbox"><span>L’enfant est en situation de handicap.</span></label>
+        </div>
+        <div id="personal-fields" class="hidden">
+          <label>Nature de la convenance personnelle
+            <select id="convenance_type">
+              <option value="">Sélectionner</option>
+              <option value="Examens médicaux">Examens médicaux</option>
+              <option value="Événement familial">Événement familial</option>
+              <option value="Autre">Autre</option>
+            </select>
+          </label>
+          <label>Motif précis de la convenance personnelle <textarea id="motif_personnel" rows="3"></textarea></label>
+          <div class="warning"><strong>Aucun droit automatique</strong><span>La demande doit être expressément autorisée. Une récupération n’est possible que si ses modalités sont validées par le proviseur avant l’absence.</span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title"><span>3</span><div><h2>Période sollicitée</h2><p>Indiquez les dates et horaires exacts.</p></div></div>
+        <label>Organisation de la période
+          <select id="periode_type" required>
+            <option value="journee">Journée complète — 7 h 30 à 17 h 30</option>
+            <option value="matin">Demi-journée du matin — 7 h 30 à 12 h 30</option>
+            <option value="apresmidi">Demi-journée de l’après-midi — 12 h 30 à 17 h 30</option>
+            <option value="libre">Horaires particuliers</option>
+          </select>
+        </label>
+        <div class="grid four">
+          <label>Date de début <input id="date_debut" type="date" required></label>
+          <label>Heure de début <input id="heure_debut" type="time"></label>
+          <label>Date de fin <input id="date_fin" type="date" required></label>
+          <label>Heure de fin <input id="heure_fin" type="time"></label>
+        </div>
+        <div id="duration-result" class="duration-result"><strong>Durée calculée :</strong><span>Renseignez les dates.</span></div>
+        <input id="duree" type="hidden">
+        <p class="help">Le calcul exclut les samedis et dimanches. L’agent doit vérifier les jours fériés et les jours où il n’est normalement pas en service.</p>
+        <label>Précisions utiles à l’organisation du service <textarea id="organisation" rows="3" placeholder="Cours ou missions concernés, mesure d’organisation proposée…"></textarea></label>
+      </section>
+
+      <section id="teacher-section" class="card hidden">
+        <div class="section-title"><span>4a</span><div><h2>Cours qui ne seront pas assurés</h2><p>Chaque cours concerné doit être déclaré sur une ligne distincte.</p></div></div>
+        <div id="course-rows" class="course-rows"></div>
+        <button type="button" class="add-row" id="add-course">+ Ajouter un cours non assuré</button>
+      </section>
+
+      <section id="recovery-section" class="card hidden">
+        <div class="section-title"><span>4b</span><div><h2>Proposition de récupération</h2><p>Les jours et heures exacts sont obligatoires.</p></div></div>
+        <div id="teacher-recovery-warning" class="warning hidden"><strong>Enseignants — dispositif exceptionnel et dérogatoire</strong><span>La récupération d’un cours ne peut être envisagée qu’à titre véritablement exceptionnel, après échange et accord préalable du proviseur adjoint. La saisie d’une proposition ne vaut ni accord ni autorisation.</span></div>
+        <div id="recovery-rows" class="recovery-rows"></div>
+        <button type="button" class="add-row" id="add-recovery">+ Ajouter une ligne de récupération</button>
+      </section>
+
+      <section class="card">
+        <div class="section-title"><span>5</span><div><h2>Justificatifs et déclaration</h2><p>Les pièces sont transmises séparément selon le circuit de l’établissement.</p></div></div>
+        <label>Nature des justificatifs transmis <input id="justificatifs" placeholder="Ex. : acte de décès, certificat, convocation…"></label>
+        <label class="check declaration"><input id="certifie" type="checkbox" required><span>Je certifie l’exactitude des informations et reconnais que je ne peux pas m’absenter avant notification de la décision, sauf urgence impossible à anticiper.</span></label>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="secondary" id="preview-btn"><span aria-hidden="true">◉</span> Prévisualiser</button>
+        <button type="button" class="secondary" id="pdf-btn"><span aria-hidden="true">▣</span> Imprimer / PDF</button>
+        <button type="button" class="primary" id="word-btn"><span aria-hidden="true">↓</span> Télécharger le document Word</button>
+      </div>
+      <p id="error-message" class="error" role="alert"></p>
+        </div>
+      </div>
+    </form>
+
+    <section id="guide-panel" class="app-panel info-panel hidden" data-panel="guide-panel">
+      <h2>Mode d’emploi du formulaire</h2>
+      <div class="guide-grid">
+        <article><span>1</span><h3>Identifier l’agent</h3><p>Choisir « personnel enseignant » ou « autre personnel ». Cette sélection détermine les informations complémentaires demandées.</p></article>
+        <article><span>2</span><h3>Choisir le motif exact</h3><p>L’application affiche immédiatement la qualification : ASA de droit, ASA soumise aux nécessités de service, aménagement horaire ou convenance personnelle.</p></article>
+        <article><span>3</span><h3>Définir la période</h3><p>Les journées et demi-journées sont calculées selon les horaires du lycée : 7 h 30–12 h 30 et 12 h 30–17 h 30.</p></article>
+        <article><span>4</span><h3>Déclarer les cours</h3><p>Un enseignant renseigne une ligne par cours non assuré : niveau, classe ou groupe, date, activité, début, fin et durée.</p></article>
+        <article><span>5</span><h3>Récupération éventuelle</h3><p>Chaque ligne comporte obligatoirement un jour, une heure de début et une heure de fin. Pour un enseignant, la récupération est exceptionnelle et suppose l’accord préalable du proviseur adjoint.</p></article>
+        <article><span>6</span><h3>Produire le document</h3><p>Prévisualiser la demande, puis télécharger le document Word ou l’imprimer et l’enregistrer au format PDF.</p></article>
+      </div>
+      <div class="notice"><strong>Avant transmission</strong><span>Vérifier les dates, les jours fériés, les cours ou missions concernés, les justificatifs annoncés et l’adresse électronique de copie.</span></div>
+    </section>
+
+    <section id="faq-panel" class="app-panel info-panel hidden" data-panel="faq-panel">
+      <h2>FAQ — application du décret au lycée</h2>
+      <details open><summary>À quelle date le nouveau régime s’applique-t-il ?</summary><p>Le décret n° 2026-604 du 6 juillet 2026 entre en vigueur le 1er janvier 2027. Jusqu’à cette date, les règles antérieures demeurent applicables.</p></details>
+      <details><summary>Quels personnels du lycée sont concernés ?</summary><p>Les fonctionnaires, stagiaires et agents contractuels en position d’activité sont concernés. Pour les personnels de l’État, la demande suit le circuit du lycée. Pour les agents territoriaux, la décision définitive peut relever de la Région Pays de la Loire.</p></details>
+      <details><summary>Une ASA de droit peut-elle être refusée ?</summary><p>Non, lorsque le motif, les conditions et les justificatifs sont établis. L’organisation du service doit être adaptée ; elle ne permet pas de transformer l’ASA de droit en récupération obligatoire.</p></details>
+      <details><summary>Que signifie « sous réserve des nécessités de service » ?</summary><p>L’autorité apprécie les conséquences concrètes sur la continuité et la sécurité du service. Un refus doit être motivé par des éléments précis lorsqu’une motivation est requise par le décret.</p></details>
+      <details><summary>Un enseignant doit-il indiquer les cours non assurés ?</summary><p>Oui, à des fins d’organisation du lycée. Cette information ne modifie pas la nature juridique de l’absence. Chaque cours concerné est déclaré séparément afin de permettre l’étude d’un remplacement ou d’une réorganisation.</p></details>
+      <details><summary>Les cours correspondant à une ASA doivent-ils être récupérés ?</summary><p>Une ASA n’est pas une dette d’heures. Elle est assimilée à du temps d’activité dans les conditions prévues par le décret. Pour les enseignants, une récupération ne peut être envisagée que dans les situations où elle est juridiquement possible, de manière exceptionnelle et après accord préalable du proviseur adjoint.</p></details>
+      <details><summary>Qu’est-ce qu’une convenance personnelle ?</summary><p>Ce n’est pas une ASA prévue par le décret. Elle ne constitue aucun droit. Le proviseur peut l’autoriser ou la refuser au regard du service. Une éventuelle récupération doit être définie et autorisée avant l’absence.</p></details>
+      <details><summary>Comment sont calculées les journées ?</summary><p>Une journée complète correspond à 7 h 30–17 h 30 ; le matin à 7 h 30–12 h 30 ; l’après-midi à 12 h 30–17 h 30. Les samedis et dimanches sont exclus automatiquement. Les jours fériés et les jours normalement non travaillés restent à vérifier.</p></details>
+      <details><summary>Comment transmettre un justificatif médical ?</summary><p>Seule l’information nécessaire doit être communiquée. Le diagnostic détaillé n’a pas à être porté à la connaissance du supérieur hiérarchique lorsqu’une attestation suffisante établit le droit. Les pièces sont transmises séparément selon le circuit confidentiel du lycée.</p></details>
+      <p class="source-note">Références : articles L. 622-1 et L. 622-2 du code général de la fonction publique ; article L. 1225-16 du code du travail ; décret n° 2026-604 du 6 juillet 2026. Les consignes pourront être ajustées en fonction des instructions ministérielles, rectorales ou régionales publiées avant l’entrée en vigueur.</p>
+    </section>
+  </main>
+
+  <dialog id="preview-dialog"><div class="dialog-head"><h2>Aperçu de la demande</h2><button id="close-preview" aria-label="Fermer">×</button></div><div id="preview-content"></div></dialog>
+  <script src="vendor/docx.iife.js"></script>
+  <script>window.docx = docx;</script>
+  <script src="app.js"></script>
+</body>
+</html>
