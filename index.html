@@ -5,21 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Demande d’autorisation d’absence — Lycée Ambroise Paré</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">AP</span><div><strong>Lycée Ambroise Paré</strong><small>Gestion des demandes d’absence</small></div></div>
-    <span class="status">Données conservées sur cet appareil</span>
+    <span class="status">Saisie temporaire, sans sauvegarde</span>
   </header>
 
   <main class="layout">
     <section class="intro">
       <div class="hero-symbol" aria-hidden="true"><span>AP</span></div>
       <p class="eyebrow">ESPACE AGENT · ABSENCES</p>
-      <h1>Préparer une demande d’autorisation d’absence</h1>
-      <p><strong>Lycée Ambroise Paré de Laval</strong> — 17 rue du Lycée, 53000 Laval</p>
-      <p>Renseignez votre situation. L’application identifie le régime applicable et prépare le document à transmettre à votre chef de service.</p>
-      <div class="notice"><strong>Application du décret n° 2026-604</strong><span>Le nouveau régime entre en vigueur le 1er janvier 2027. Les justificatifs ne sont pas enregistrés dans l’application.</span></div>
+      <h1>Demande d’autorisation d’absence</h1>
+      <p class="release-info" id="release-info">Version 3.0.0 · Publication : en attente de validation</p>
+      <p>Saisissez votre demande puis téléchargez le document à transmettre au lycée.</p>
+      <div class="notice"><span>Formulaire prévu pour les absences à partir du 1er janvier 2027. Consultez la FAQ pour les règles affichées.</span></div>
     </section>
 
     <nav class="panel-nav" aria-label="Rubriques de l’application">
@@ -30,7 +31,9 @@
 
     <form id="absence-form" class="app-panel" data-panel="form-panel" novalidate>
       <div class="form-workspace">
-        <aside class="live-summary" aria-label="Synthèse de la demande">
+        <details class="live-summary" open>
+          <summary class="summary-toggle">Synthèse de la demande</summary>
+          <div class="summary-body">
           <div class="summary-kicker">VOTRE DEMANDE</div>
           <h2>Synthèse</h2>
           <div class="progress-track"><span id="progress-bar"></span></div>
@@ -42,8 +45,9 @@
             <div><dt>Période</dt><dd id="summary-period">À renseigner</dd></div>
             <div class="summary-duration"><dt>Durée calculée</dt><dd id="summary-duration">—</dd></div>
           </dl>
-          <div class="privacy-card"><span aria-hidden="true">✓</span><p><strong>Données locales</strong><br>Aucune information n’est transmise en ligne.</p></div>
-        </aside>
+          <div class="privacy-card"><span aria-hidden="true">✓</span><p><strong>Saisie temporaire</strong><br>Le formulaire n’envoie pas votre saisie à un serveur. Elle est perdue si vous rechargez ou fermez la page. Téléchargez votre document avant de quitter.</p></div>
+          </div>
+        </details>
         <div class="form-content">
       <section class="card">
         <div class="section-title"><span>1</span><div><h2>Identité et affectation</h2><p>Informations nécessaires à l’instruction de la demande.</p></div></div>
@@ -124,12 +128,14 @@
             <option value="libre">Horaires particuliers</option>
           </select>
         </label>
+        <p id="regime-warning" class="warning hidden" role="status">Cette application est configurée pour les absences à partir du 1er janvier 2027. Pour une période antérieure ou à cheval sur cette date, contactez le secrétariat : les règles antérieures ne sont pas intégrées à ce formulaire.</p>
         <div class="grid four">
           <label>Date de début <input id="date_debut" type="date" required></label>
           <label>Heure de début <input id="heure_debut" type="time"></label>
           <label>Date de fin <input id="date_fin" type="date" required></label>
           <label>Heure de fin <input id="heure_fin" type="time"></label>
         </div>
+        <p id="hours-help" class="help hidden">Pour plusieurs jours, les mêmes horaires s’appliquent chaque jour. Pour des horaires différents, préparez des demandes distinctes.</p>
         <div id="duration-result" class="duration-result"><strong>Durée calculée :</strong><span>Renseignez les dates.</span></div>
         <input id="duree" type="hidden">
         <p class="help">Le calcul exclut les samedis et dimanches. L’agent doit vérifier les jours fériés et les jours où il n’est normalement pas en service.</p>
@@ -155,12 +161,13 @@
         <label class="check declaration"><input id="certifie" type="checkbox" required><span>Je certifie l’exactitude des informations et reconnais que je ne peux pas m’absenter avant notification de la décision, sauf urgence impossible à anticiper.</span></label>
       </section>
 
+      <p id="error-message" class="error" role="alert" tabindex="-1"></p>
       <div class="actions">
         <button type="button" class="secondary" id="preview-btn"><span aria-hidden="true">◉</span> Prévisualiser</button>
         <button type="button" class="secondary" id="pdf-btn"><span aria-hidden="true">▣</span> Imprimer / PDF</button>
         <button type="button" class="primary" id="word-btn"><span aria-hidden="true">↓</span> Télécharger le document Word</button>
       </div>
-      <p id="error-message" class="error" role="alert"></p>
+      <p class="help">Sur téléphone, le fichier Word se retrouve dans les téléchargements. Le bouton Imprimer / PDF utilise les options proposées par votre navigateur.</p>
         </div>
       </div>
     </form>
@@ -171,11 +178,11 @@
         <article><span>1</span><h3>Identifier l’agent</h3><p>Choisir « personnel enseignant » ou « autre personnel ». Cette sélection détermine les informations complémentaires demandées.</p></article>
         <article><span>2</span><h3>Choisir le motif exact</h3><p>L’application affiche immédiatement la qualification : ASA de droit, ASA soumise aux nécessités de service, aménagement horaire ou convenance personnelle.</p></article>
         <article><span>3</span><h3>Définir la période</h3><p>Les journées et demi-journées sont calculées selon les horaires du lycée : 7 h 30–12 h 30 et 12 h 30–17 h 30.</p></article>
-        <article><span>4</span><h3>Déclarer les cours</h3><p>Un enseignant renseigne une ligne par cours non assuré : niveau, classe ou groupe, date, activité, début, fin et durée.</p></article>
+        <article><span>4</span><h3>Déclarer les cours si nécessaire</h3><p>Pour une demande qui ne relève pas d’un congé ou d’une autorisation ouvrant droit à absence dans les limites prévues, un enseignant renseigne une ligne par cours non assuré : niveau, classe ou groupe, date, activité, début, fin et durée.</p></article>
         <article><span>5</span><h3>Récupération éventuelle</h3><p>Chaque ligne comporte obligatoirement un jour, une heure de début et une heure de fin. Pour un enseignant, la récupération est exceptionnelle et suppose l’accord préalable du proviseur adjoint.</p></article>
         <article><span>6</span><h3>Produire le document</h3><p>Prévisualiser la demande, puis télécharger le document Word ou l’imprimer et l’enregistrer au format PDF.</p></article>
       </div>
-      <div class="notice"><strong>Avant transmission</strong><span>Vérifier les dates, les jours fériés, les cours ou missions concernés, les justificatifs annoncés et l’adresse électronique de copie.</span></div>
+      <div class="notice"><strong>Avant transmission</strong><span>Vérifier les dates, les jours fériés, les cours ou missions concernés et les justificatifs annoncés. Téléchargez le document puis transmettez-le selon le circuit de l’établissement.</span></div>
     </section>
 
     <section id="faq-panel" class="app-panel info-panel hidden" data-panel="faq-panel">
@@ -184,7 +191,7 @@
       <details><summary>Quels personnels du lycée sont concernés ?</summary><p>Les fonctionnaires, stagiaires et agents contractuels en position d’activité sont concernés. Pour les personnels de l’État, la demande suit le circuit du lycée. Pour les agents territoriaux, la décision définitive peut relever de la Région Pays de la Loire.</p></details>
       <details><summary>Une ASA de droit peut-elle être refusée ?</summary><p>Non, lorsque le motif, les conditions et les justificatifs sont établis. L’organisation du service doit être adaptée ; elle ne permet pas de transformer l’ASA de droit en récupération obligatoire.</p></details>
       <details><summary>Que signifie « sous réserve des nécessités de service » ?</summary><p>L’autorité apprécie les conséquences concrètes sur la continuité et la sécurité du service. Un refus doit être motivé par des éléments précis lorsqu’une motivation est requise par le décret.</p></details>
-      <details><summary>Un enseignant doit-il indiquer les cours non assurés ?</summary><p>Oui, à des fins d’organisation du lycée. Cette information ne modifie pas la nature juridique de l’absence. Chaque cours concerné est déclaré séparément afin de permettre l’étude d’un remplacement ou d’une réorganisation.</p></details>
+      <details><summary>Un enseignant doit-il indiquer les cours non assurés ?</summary><p>Pas pour un congé ou une autorisation ouvrant droit à absence dans la limite des jours ou du temps prévus. Dans les autres situations, chaque cours concerné est déclaré séparément afin de permettre l’étude d’une récupération ou d’une réorganisation.</p></details>
       <details><summary>Les cours correspondant à une ASA doivent-ils être récupérés ?</summary><p>Une ASA n’est pas une dette d’heures. Elle est assimilée à du temps d’activité dans les conditions prévues par le décret. Pour les enseignants, une récupération ne peut être envisagée que dans les situations où elle est juridiquement possible, de manière exceptionnelle et après accord préalable du proviseur adjoint.</p></details>
       <details><summary>Qu’est-ce qu’une convenance personnelle ?</summary><p>Ce n’est pas une ASA prévue par le décret. Elle ne constitue aucun droit. Le proviseur peut l’autoriser ou la refuser au regard du service. Une éventuelle récupération doit être définie et autorisée avant l’absence.</p></details>
       <details><summary>Comment sont calculées les journées ?</summary><p>Une journée complète correspond à 7 h 30–17 h 30 ; le matin à 7 h 30–12 h 30 ; l’après-midi à 12 h 30–17 h 30. Les samedis et dimanches sont exclus automatiquement. Les jours fériés et les jours normalement non travaillés restent à vérifier.</p></details>
@@ -193,7 +200,8 @@
     </section>
   </main>
 
-  <dialog id="preview-dialog"><div class="dialog-head"><h2>Aperçu de la demande</h2><button id="close-preview" aria-label="Fermer">×</button></div><div id="preview-content"></div></dialog>
+  <dialog id="preview-dialog" aria-labelledby="preview-title"><div class="dialog-head"><h2 id="preview-title">Aperçu de la demande</h2><button id="close-preview" aria-label="Fermer">×</button></div><div id="preview-content"></div></dialog>
+  <script src="release.js"></script>
   <script src="vendor/docx.iife.js"></script>
   <script>window.docx = docx;</script>
   <script src="app.js"></script>

@@ -1,0 +1,60 @@
+diff --git a/package.json b/package.json
+index f47c5d1..3ba80c7 100644
+--- a/package.json
++++ b/package.json
+@@ -6,10 +6,10 @@
+     "node": ">=22.13.0"
+   },
+   "scripts": {
+-    "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
++    "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vite",
+     "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
+     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
+-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
++    "test": "node --test tests/absence.test.mjs",
+     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+     "db:generate": "drizzle-kit generate"
+   },
+diff --git a/vite.config.ts b/vite.config.ts
+index 7d0e7ce..b648990 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -2,6 +2,7 @@ import { sites } from "@openai/sites-vite-plugin";
+ import vinext from "vinext";
+ import { defineConfig } from "vite";
+ import hostingConfig from "./.openai/hosting.json";
++import { readFile } from "node:fs/promises";
+ 
+ const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
+   "00000000-0000-4000-8000-000000000000";
+@@ -44,10 +45,27 @@ export default defineConfig(async () => {
+   const { cloudflare } = await import("@cloudflare/vite-plugin");
+ 
+   return {
+-    server: isCodexSeatbeltSandbox
+-      ? { watch: { useFsEvents: false, usePolling: true } }
+-      : undefined,
++    server: {
++      host: "0.0.0.0",
++      allowedHosts: ["terminal.local"],
++      ...(isCodexSeatbeltSandbox ? { watch: { useFsEvents: false, usePolling: true } } : {}),
++    },
+     plugins: [
++      {
++        name: "absence-mobile-qa",
++        apply: "serve" as const,
++        configureServer(server: import("vite").ViteDevServer) {
++          server.middlewares.use("/__qa_mobile", async (_request, response) => {
++            try {
++              response.setHeader("Content-Type", "text/html; charset=utf-8");
++              response.end(await readFile(new URL("./tests/mobile-layout.html", import.meta.url), "utf8"));
++            } catch {
++              response.statusCode = 500;
++              response.end("Mobile QA unavailable");
++            }
++          });
++        },
++      },
+       vinext(),
+       sites(),
+       cloudflare({

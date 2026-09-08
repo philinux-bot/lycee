@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="fr">
+<meta charset="utf-8">
+<title>Essais locaux — Absences</title>
+<style>body{margin:0;font:16px Arial;background:#dbe3e9}header{padding:12px;background:white;display:flex;gap:16px;align-items:center}select,button{font:inherit;padding:8px}.qa-frame{display:block;border:1px solid #768895;width:390px;height:844px;margin:12px auto;background:white}</style>
+<header><label>Dimensions de test <select id="size"><option value="320,740">320 × 740</option><option value="360,800">360 × 800</option><option value="390,844" selected>390 × 844</option><option value="430,932">430 × 932</option><option value="844,390">844 × 390 paysage</option><option value="768,1024">768 × 1024 tablette</option><option value="1280,900">1280 × 900 ordinateur</option></select></label><button id="reload">Recommencer</button><span>Test local non publié</span></header>
+<iframe class="qa-frame" title="Application aux dimensions sélectionnées" src="/"></iframe>
+<script>
+const frame=document.querySelector('iframe');
+document.querySelector('#size').addEventListener('change',event=>{const [w,h]=event.target.value.split(',');frame.style.width=w+'px';frame.style.height=h+'px';});
+document.querySelector('#reload').addEventListener('click',()=>frame.src='/');
+</script>
+</html>
