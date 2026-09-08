@@ -11,6 +11,7 @@ const html = readFileSync(new URL('index.html', root), 'utf8');
 const section = (start, end) => source.slice(source.indexOf(start), source.indexOf(end));
 function fixture(overrides = {}, courses = [], recoveries = []) {
   const defaults = { nom:'TEST', prenom:'Audit', personnel_type:'autre', fonction:'Test', employeur:'État', telephone:'', motif:'mariage', periode_type:'journee', date_debut:'2027-01-11', date_fin:'2027-01-11', heure_debut:'07:30', heure_fin:'17:30', duree:'', certifie:true, organisation:'', justificatifs:'', convenance_type:'', motif_personnel:'', enfant_nom:'', enfant_naissance:'', charge_seul:false, enfant_handicap:false, ...overrides };
+  for(const id of ['reserve_statut','reserve_annee','reserve_demandes','reserve_accordes','reserve_jours'])if(!(id in defaults))defaults[id]='';
   const elements = new Map();
   const element = (value='') => ({value:typeof value==='boolean'?'':value,type:typeof value==='boolean'?'checkbox':'text',checked:value===true,textContent:'',classList:{remove(){},toggle(){}},focus(){},setAttribute(){},removeAttribute(){},querySelector(){return {textContent:''};}});
   for(const [id,value] of Object.entries(defaults))elements.set(id,{...element(value),id});
@@ -103,4 +104,20 @@ test('entrypoint assets exist and form IDs are unique',()=>{
   for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g))assert.ok(existsSync(new URL(match[1],root)),match[1]);
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
   assert.match(html,/width=device-width/);assert.match(html,/responsive\.css/);
+});
+const reserveCase={motif:'reserve_police',reserve_statut:'Fonctionnaire',reserve_demandes:'12',reserve_accordes:'10',reserve_jours:'1'};
+test('reserve declares calendar year, previous requests and approvals without recovery',()=>{
+  const {ctx}=fixture(reserveCase);assert.equal(ctx.validate(),true);
+  const data=ctx.values();assert.equal(data.reserve_annee,'2027');
+  const paper=ctx.paperHtml(data);assert.match(paper,/Jours déjà demandés/);assert.match(paper,/10/);assert.doesNotMatch(paper,/Proposition de récupération/);
+  assert.equal(fixture({...reserveCase,date_debut:'2026-12-31',date_fin:'2027-01-04'}).ctx.validate(),false);
+  for(const change of [{reserve_accordes:'13'},{reserve_demandes:'-1'},{reserve_jours:'0'},{reserve_jours:'2'},{reserve_demandes:''},{reserve_statut:''}])assert.equal(fixture({...reserveCase,...change}).ctx.validate(),false);
+  const hidden=fixture({...reserveCase,motif:'mariage'});assert.equal(hidden.ctx.values().reserve_demandes,'');
+});
+test('teacher reserve requires affected courses and produces a Word document',async()=>{
+  assert.equal(fixture({...reserveCase,personnel_type:'enseignant'}).ctx.validate(),false);
+  const {ctx}=fixture({...reserveCase,personnel_type:'enseignant'},[course]);assert.equal(ctx.validate(),true);
+  vm.runInContext(readFileSync(new URL('vendor/docx.iife.js',root),'utf8'),ctx);
+  vm.runInContext(section('function textCell','async function downloadWord'),ctx);
+  const result=await ctx.buildWordFile();assert.ok(result.blob.size>1000);
 });

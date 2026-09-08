@@ -18,7 +18,7 @@
       <div class="hero-symbol" aria-hidden="true"><span>AP</span></div>
       <p class="eyebrow">ESPACE AGENT · ABSENCES</p>
       <h1>Demande d’autorisation d’absence</h1>
-      <p class="release-info" id="release-info">Version 3.0.1 · Publication : 8 septembre 2026</p>
+      <p class="release-info" id="release-info">Version 3.1.0 · Publication : en attente de validation</p>
       <p>Saisissez votre demande puis téléchargez le document à transmettre au lycée.</p>
       <div class="notice"><span>Vous pouvez utiliser ce formulaire dès maintenant. Toute demande reste soumise à l’examen du lycée.</span></div>
     </section>
@@ -93,11 +93,24 @@
               <option value="allaitement">Allaitement pendant l’année suivant la naissance</option>
             </optgroup>
             <optgroup label="Hors décret">
+              <option value="reserve_police">Réserve opérationnelle de la Police nationale</option>
               <option value="convenance">Absence pour convenance personnelle</option>
             </optgroup>
           </select>
         </label>
         <div id="legal-info" class="legal-info hidden" aria-live="polite"></div>
+        <div id="reserve-fields" class="hidden">
+          <p>Décompte par année civile, du 1er janvier au 31 décembre, pour les absences sur votre temps de travail. Renseignez les autres demandes de la même année, hors demande actuelle et hors demandes refusées ou annulées. Ces nombres sont déclaratifs et seront vérifiés par le service gestionnaire.</p>
+          <div class="grid two">
+            <label>Statut de l’agent <select id="reserve_statut"><option value="">Sélectionner</option><option value="Fonctionnaire">Fonctionnaire</option><option value="Contractuel de droit public">Contractuel de droit public</option><option value="Autre statut">Autre statut</option></select></label>
+            <label>Année civile concernée <input id="reserve_annee" type="number" readonly placeholder="Déduite des dates d’absence"></label>
+            <label>Jours déjà demandés cette année <input id="reserve_demandes" type="number" min="0" max="366" step="0.5" inputmode="decimal"></label>
+            <label>Dont jours déjà accordés <input id="reserve_accordes" type="number" min="0" max="366" step="0.5" inputmode="decimal"></label>
+            <label>Jours d’absence sollicités dans cette demande <input id="reserve_jours" type="number" min="0.5" max="366" step="0.5" inputmode="decimal"></label>
+          </div>
+          <p>Indiquez 0 pour les antécédents d’une première demande. Pour la demande actuelle, comptez uniquement les jours d’absence sur votre temps de travail, selon votre emploi du temps. Les demandes en attente ne sont pas des jours accordés. Pour une période à cheval sur deux années, établissez une demande par année. Joignez la convocation séparément.</p>
+          <p>Pour un fonctionnaire, le repère est de 45 jours de congé avec traitement par année civile. Ce plafond ne vaut pas autorisation automatique d’absence. Pour les autres statuts, le régime doit être confirmé par l’employeur.</p>
+        </div>
         <div id="child-fields" class="grid two hidden">
           <label>Nom et prénom de l’enfant <input id="enfant_nom"></label>
           <label>Date de naissance de l’enfant <input id="enfant_naissance" type="date"></label>
