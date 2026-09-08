@@ -1,6 +1,6 @@
 # Version 3.0.0 — préparation du 8 septembre 2026
 
-Statut : version de travail, non publiée. La date de publication reste vide dans `release.js` jusqu’à validation et mise en ligne effective.
+Publication autorisée par Felipe le 8 septembre 2026. Date de publication prévue pour cette mise en ligne : 8 septembre 2026, renseignée dans `release.js`. Le statut de déploiement Sites fait foi de la mise en ligne effective.
 
 ## Évolutions
 
