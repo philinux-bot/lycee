@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#245B78">
+  <meta name="description" content="Cap Avenir, l’application d’orientation du lycée Ambroise Paré de Laval : explorer, comparer et construire son projet du lycée au supérieur.">
+  <meta name="color-scheme" content="light">
+  <title>Cap Avenir · Lycée Ambroise Paré</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
+  <header class="topbar">
+    <a class="brand" href="#accueil" aria-label="Cap Avenir, lycée Ambroise Paré, accueil">
+      <span class="brand-mark" aria-hidden="true">AP</span>
+      <span class="brand-copy">
+        <strong>CAP AVENIR</strong>
+        <small>LYCÉE AMBROISE PARÉ · LAVAL</small>
+      </span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navigation principale">
+      <button type="button" data-route="accueil">Accueil</button>
+      <button type="button" data-route="parcours">Mon parcours</button>
+      <button type="button" data-route="specialites">Spécialités</button>
+      <button type="button" data-route="formations">Formations</button>
+      <button type="button" data-route="projet">Mon projet</button>
+      <button type="button" data-route="ressources">Ressources</button>
+    </nav>
+
+    <button class="level-button" id="levelButton" type="button" aria-haspopup="dialog">
+      <span class="status-dot" id="levelDot" aria-hidden="true"></span>
+      <span id="levelLabel">Mon niveau</span>
+    </button>
+  </header>
+
+  <main id="main">
+    <section class="view is-active" data-view="accueil" aria-labelledby="home-title">
+      <div class="hero shell">
+        <div class="hero-copy">
+          <span class="eyebrow">TON ORIENTATION · TON CHEMIN</span>
+          <h1 id="home-title">Construis un projet qui te ressemble.</h1>
+          <p class="lead">Explore les possibles, compare les formations, teste tes choix et garde une trace de ce que tu décides. Ici, pas de parcours « idéal » imposé : on t’aide à comprendre les cohérences, les attendus et les alternatives.</p>
+          <div class="button-row">
+            <button class="button button-primary" type="button" data-route="parcours">Commencer mon parcours</button>
+            <button class="button button-secondary" type="button" data-route="projet">Ouvrir mon projet</button>
+          </div>
+          <p class="privacy-note"><strong>Données privées.</strong> Ton projet reste sur cet appareil tant que tu ne l’exportes pas.</p>
+        </div>
+
+        <div class="hero-map" aria-label="Les quatre étapes du parcours : me connaître, explorer, comparer et décider">
+          <div class="orbit orbit-a" aria-hidden="true"></div>
+          <div class="orbit orbit-b" aria-hidden="true"></div>
+          <article class="hero-node node-a"><span>01</span><strong>Je me connais</strong><small>goûts · forces · envies</small></article>
+          <article class="hero-node node-b"><span>02</span><strong>J’explore</strong><small>spécialités · études · métiers</small></article>
+          <article class="hero-node node-c"><span>03</span><strong>Je compare</strong><small>contenu · critères · réalités</small></article>
+          <article class="hero-node node-d"><span>04</span><strong>Je décide</strong><small>un projet · des alternatives</small></article>
+        </div>
+      </div>
+
+      <div class="shell dashboard-grid">
+        <article class="card progress-card">
+          <div class="card-heading split">
+            <div><span class="kicker">MON AVANCEMENT</span><h2>Mon cap</h2></div>
+            <strong class="progress-number" id="progressNumber">0 %</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+          <div class="check-list" id="progressChecks"></div>
+        </article>
+
+        <article class="card card-blue">
+          <span class="kicker">À FAIRE MAINTENANT</span>
+          <h2 id="nextTitle">Choisis ton niveau</h2>
+          <p id="nextText">L’application adaptera les étapes à ta classe.</p>
+          <button class="text-link light-link" type="button" data-route="parcours">Voir mon parcours →</button>
+        </article>
+
+        <article class="card">
+          <span class="kicker">À RETENIR</span>
+          <p class="editorial-quote">Une formation du supérieur ne peut pas imposer une combinaison unique de spécialités.</p>
+          <p>Les spécialités peuvent préparer plus ou moins directement à certaines études. Elles ne valent jamais, à elles seules, autorisation ou interdiction de candidater.</p>
+          <a class="text-link" href="https://www.parcoursup.gouv.fr/construire-son-projet-d-orientation/comment-choisir-vos-specialites-en-seconde-et-premiere-1619" target="_blank" rel="noopener">Lire la règle officielle ↗</a>
+        </article>
+      </div>
+
+      <div class="shell section-block">
+        <span class="eyebrow">CHOISIS TON POINT D’ENTRÉE</span>
+        <h2 class="section-title">Où en es-tu aujourd’hui ?</h2>
+        <div class="level-grid">
+          <button class="level-card" type="button" data-level="seconde"><strong>2de</strong><span>Je découvre mes possibles</span><small>3 spécialités, voie technologique et premières pistes post-bac.</small></button>
+          <button class="level-card" type="button" data-level="premiere"><strong>1re</strong><span>Je précise mon cap</span><small>Choisir 2 spécialités de terminale et confronter mes idées à des formations réelles.</small></button>
+          <button class="level-card" type="button" data-level="terminale"><strong>Tle</strong><span>Je transforme mon projet en stratégie</span><small>Comparer, diversifier, préparer mes vœux et mes réponses.</small></button>
+          <button class="level-card stmg-card" type="button" data-level="stmg"><strong>STMG</strong><span>Je construis un parcours ambitieux</span><small>BTS, BUT, licences, écoles et CPGE ECT selon mon projet.</small></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="parcours" aria-labelledby="journey-title">
+      <div class="page-head shell">
+        <div>
+          <span class="eyebrow">MON PARCOURS</span>
+          <h1 id="journey-title">Une orientation progressive, pas un choix d’un soir.</h1>
+          <p class="lead">Ton projet peut évoluer. Chaque étape sert à rendre la prochaine décision plus éclairée.</p>
+        </div>
+        <div class="segmented" id="levelSegment" aria-label="Choisir le niveau">
+          <button type="button" data-level="seconde">Seconde</button>
+          <button type="button" data-level="premiere">Première</button>
+          <button type="button" data-level="terminale">Terminale</button>
+          <button type="button" data-level="stmg">STMG</button>
+        </div>
+      </div>
+      <div class="shell journey-layout">
+        <aside class="step-nav" id="stepNav" aria-label="Étapes du parcours"></aside>
+        <div id="journeyPanel"></div>
+      </div>
+    </section>
+
+    <section class="view" data-view="specialites" aria-labelledby="specialities-title">
+      <div class="page-head shell">
+        <div>
+          <span class="eyebrow">VOIE GÉNÉRALE · AMBROISE PARÉ</span>
+          <h1 id="specialities-title">Choisir mes spécialités sans me fermer de portes.</h1>
+          <p class="lead">Sélectionne jusqu’à trois spécialités. L’outil met en évidence des domaines souvent cohérents avec tes choix, jamais des interdictions.</p>
+        </div>
+        <div class="choice-counter" aria-live="polite"><strong id="specialityCount">0</strong><span>/ 3 choisies</span></div>
+      </div>
+      <div class="shell">
+        <div class="info-banner"><strong>Repère.</strong> Pour une formation précise, consulte toujours sa fiche Parcoursup et ses critères généraux d’examen des vœux. Les rapprochements proposés ici sont des pistes de réflexion.</div>
+        <div class="speciality-grid" id="specialityGrid"></div>
+        <section class="analysis-panel" id="specialityAnalysis" aria-live="polite"></section>
+      </div>
+    </section>
+
+    <section class="view" data-view="formations" aria-labelledby="formations-title">
+      <div class="page-head shell">
+        <div>
+          <span class="eyebrow">EXPLORER LE SUPÉRIEUR</span>
+          <h1 id="formations-title">Compare les formations par ce qui compte vraiment.</h1>
+          <p class="lead">Contenu, type de diplôme, encadrement, sélectivité, coût, mobilité, poursuite d’études et débouchés : une formation intéressante est d’abord une formation comprise.</p>
+        </div>
+        <a class="button button-primary" href="https://dossier.parcoursup.fr/Candidat/carte" target="_blank" rel="noopener">Ouvrir la carte Parcoursup ↗</a>
+      </div>
+
+      <div class="shell filters" role="search">
+        <label class="search-field"><span class="sr-only">Rechercher une famille de formations</span><input id="formationSearch" type="search" placeholder="Droit, santé, BUT, BTS, ingénieur…"></label>
+        <label><span class="sr-only">Filtrer par type</span><select id="formationType"><option value="">Tous les types</option><option>Université</option><option>Santé</option><option>BUT</option><option>BTS</option><option>Prépa</option><option>École</option></select></label>
+      </div>
+      <div class="shell formation-grid" id="formationGrid"></div>
+
+      <div class="shell compare-section">
+        <div class="compare-heading">
+          <div><span class="eyebrow">MON COMPARATEUR</span><h2>Mes formations repérées</h2></div>
+          <button class="button button-secondary button-small" type="button" id="openFormationDialog">+ Ajouter une formation</button>
+        </div>
+        <div id="savedFormationList"></div>
+      </div>
+    </section>
+
+    <section class="view" data-view="projet" aria-labelledby="project-title">
+      <div class="page-head shell">
+        <div>
+          <span class="eyebrow">MON PROJET</span>
+          <h1 id="project-title">Écris ton projet. Fais-le évoluer.</h1>
+          <p class="lead">Ce carnet t’appartient. Il est enregistré localement et peut être exporté, importé ou imprimé pour préparer un échange.</p>
+        </div>
+        <div class="button-row compact-row">
+          <button class="button button-secondary button-small" type="button" id="importButton">Importer</button>
+          <button class="button button-secondary button-small" type="button" id="exportButton">Exporter</button>
+          <button class="button button-primary button-small" type="button" id="printButton">Imprimer / PDF</button>
+        </div>
+      </div>
+
+      <div class="shell project-layout">
+        <nav class="project-nav" aria-label="Sections du projet">
+          <button class="is-active" type="button" data-project-tab="profil">1. Mon profil</button>
+          <button type="button" data-project-tab="interets">2. Mes intérêts</button>
+          <button type="button" data-project-tab="objectif">3. Mon objectif</button>
+          <button type="button" data-project-tab="pistes">4. Mes pistes</button>
+          <button type="button" data-project-tab="actions">5. Mon plan d’action</button>
+          <button type="button" data-project-tab="synthese">6. Ma synthèse</button>
+        </nav>
+
+        <form class="project-form" id="projectForm" autocomplete="off">
+          <section class="project-tab is-active" data-project-panel="profil">
+            <div class="form-heading"><span class="kicker">ÉTAPE 1</span><h2>Mon profil aujourd’hui</h2><p>Il ne s’agit pas de te mettre dans une case, mais de noter ton point de départ.</p></div>
+            <div class="form-grid">
+              <label>Prénom ou pseudo<input name="name" maxlength="40" placeholder="Ex. Camille"></label>
+              <label>Classe<select name="level"><option value="">Choisir</option><option value="seconde">Seconde</option><option value="premiere">Première générale</option><option value="terminale">Terminale générale</option><option value="stmg">STMG</option></select></label>
+              <label class="full-field">Ce que j’aime apprendre<textarea name="likes" placeholder="Matières, thèmes, questions qui éveillent ta curiosité…"></textarea></label>
+              <label class="full-field">Ce que je réussis plutôt bien<textarea name="strengths" placeholder="Analyser, expliquer, créer, organiser, convaincre, coopérer…"></textarea></label>
+              <label class="full-field">Ce que je voudrais améliorer<textarea name="progress" placeholder="Méthode, confiance, expression, régularité, une matière…"></textarea></label>
+            </div>
+          </section>
+
+          <section class="project-tab" data-project-panel="interets">
+            <div class="form-heading"><span class="kicker">ÉTAPE 2</span><h2>Mes intérêts</h2><p>Choisis ce qui t’attire aujourd’hui. Tu pourras changer demain.</p></div>
+            <div class="interest-grid" id="interestGrid"></div>
+            <label class="block-field">En dehors des cours, j’aime…<textarea name="outside" placeholder="Activités, engagements, pratiques, curiosités…"></textarea></label>
+            <label class="block-field">Je préfère apprendre en…<select name="learning"><option value="">Je ne sais pas encore</option><option>cours et travail théorique</option><option>projets et situations concrètes</option><option>alternance et entreprise</option><option>mélange théorie et pratique</option></select></label>
+          </section>
+
+          <section class="project-tab" data-project-panel="objectif">
+            <div class="form-heading"><span class="kicker">ÉTAPE 3</span><h2>Mon objectif provisoire</h2><p>Un projet provisoire est déjà un projet utile : il permet de chercher de meilleures informations.</p></div>
+            <label class="block-field">Domaines qui m’attirent<textarea name="domains" placeholder="Santé, droit, environnement, commerce, architecture, culture…"></textarea></label>
+            <label class="block-field">Métiers ou activités que j’aimerais explorer<textarea name="jobs"></textarea></label>
+            <div class="form-grid">
+              <label>Durée d’études envisagée<select name="duration"><option value="">Ouvert</option><option>2 à 3 ans</option><option>3 à 5 ans</option><option>5 ans et plus</option><option>Je ne sais pas</option></select></label>
+              <label>Mobilité<select name="mobility"><option value="">Ouvert</option><option>Je souhaite rester près de Laval</option><option>Pays de la Loire / Bretagne</option><option>Partout en France</option><option>International possible</option></select></label>
+            </div>
+            <label class="block-field">Mes contraintes ou points de vigilance<textarea name="constraints" placeholder="Budget, logement, transport, santé, sport, besoin d’accompagnement…"></textarea></label>
+            <label class="block-field">Une possibilité que je n’ose pas encore envisager<textarea name="ambition" placeholder="Une formation, une ville, un domaine qui m’attire mais que je crois peut-être inaccessible…"></textarea></label>
+          </section>
+
+          <section class="project-tab" data-project-panel="pistes">
+            <div class="form-heading"><span class="kicker">ÉTAPE 4</span><h2>Mes pistes de formation</h2><p>Garde des pistes différentes. Tu n’as pas besoin de choisir trop tôt.</p></div>
+            <div id="projectFormationMirror"></div>
+            <button class="button button-secondary" type="button" data-route="formations">Explorer / ajouter des formations</button>
+          </section>
+
+          <section class="project-tab" data-project-panel="actions">
+            <div class="form-heading"><span class="kicker">ÉTAPE 5</span><h2>Mon plan d’action</h2><p>Une bonne orientation se construit par petites vérifications concrètes.</p></div>
+            <div class="task-list" id="taskList"></div>
+            <div class="task-add">
+              <label><span class="sr-only">Nouvelle action</span><input id="taskText" placeholder="Ajouter une action personnelle…"></label>
+              <label><span class="sr-only">Date cible</span><input id="taskDate" type="date"></label>
+              <button class="button button-primary button-small" type="button" id="addTaskButton">Ajouter</button>
+            </div>
+          </section>
+
+          <section class="project-tab" data-project-panel="synthese">
+            <div class="form-heading"><span class="kicker">ÉTAPE 6</span><h2>Ma synthèse</h2><p>Une page simple pour préparer un rendez-vous avec ton professeur principal, ta famille ou un PsyEN.</p></div>
+            <div class="summary-panel" id="projectSummary"></div>
+            <label class="block-field">Ce dont j’ai besoin pour avancer<textarea name="needs" placeholder="Une information, une rencontre, une immersion, un avis, une vérification…"></textarea></label>
+            <div class="button-row">
+              <button class="button button-secondary" type="button" id="downloadSummaryButton">Télécharger ma synthèse</button>
+            </div>
+          </section>
+
+          <div class="save-status" id="saveStatus" aria-live="polite">Enregistré sur cet appareil</div>
+        </form>
+      </div>
+      <input class="sr-only" id="importFile" type="file" accept="application/json,.json">
+    </section>
+
+    <section class="view" data-view="ressources" aria-labelledby="resources-title">
+      <div class="page-head shell">
+        <div>
+          <span class="eyebrow">RESSOURCES FIABLES</span>
+          <h1 id="resources-title">Les bons sites au bon moment.</h1>
+          <p class="lead">Priorité aux ressources publiques et officielles. Reviens ensuite noter ce que tu as appris dans ton projet.</p>
+        </div>
+      </div>
+      <div class="shell resource-grid" id="resourceGrid"></div>
+      <div class="shell source-note">
+        <span class="kicker">SESSION 2027</span>
+        <h2>Dates Parcoursup à actualiser dès publication officielle</h2>
+        <p>Au 8 septembre 2026, le site officiel présente encore le calendrier 2026. L’application évite donc d’afficher les dates 2026 comme si elles étaient celles de la session 2027. Les dates annuelles seront à mettre à jour dès publication du calendrier officiel.</p>
+      </div>
+      <div class="shell source-note pale-note">
+        <span class="kicker">BIEN LIRE LES DONNÉES</span>
+        <h2>Les profils des admis ne sont pas des verdicts</h2>
+        <p>Les chiffres des années précédentes décrivent ce qui s’est passé. Ils aident à comprendre une formation et à diversifier ses choix, mais ne prédisent pas une admission individuelle et ne doivent pas conduire à l’autocensure.</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Navigation mobile">
+    <button type="button" data-route="accueil"><span aria-hidden="true">A</span>Accueil</button>
+    <button type="button" data-route="parcours"><span aria-hidden="true">P</span>Parcours</button>
+    <button type="button" data-route="specialites"><span aria-hidden="true">S</span>Spécialités</button>
+    <button type="button" data-route="formations"><span aria-hidden="true">F</span>Formations</button>
+    <button type="button" data-route="projet"><span aria-hidden="true">M</span>Mon projet</button>
+  </nav>
+
+  <dialog id="levelDialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="cancel" aria-label="Fermer">×</button>
+      <span class="eyebrow">PERSONNALISER L’APPLICATION</span>
+      <h2>Tu es en…</h2>
+      <div class="dialog-grid">
+        <button type="button" data-dialog-level="seconde">Seconde</button>
+        <button type="button" data-dialog-level="premiere">Première générale</button>
+        <button type="button" data-dialog-level="terminale">Terminale générale</button>
+        <button type="button" data-dialog-level="stmg">STMG</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="formationDialog">
+    <form method="dialog" class="dialog-card" id="formationForm">
+      <button class="dialog-close" value="cancel" aria-label="Fermer">×</button>
+      <span class="eyebrow">AJOUTER UNE PISTE</span>
+      <h2>Une formation que je veux comparer</h2>
+      <div class="form-grid">
+        <label>Nom de la formation<input name="title" required placeholder="Ex. BUT GEA"></label>
+        <label>Établissement<input name="school" placeholder="Ex. IUT de Laval"></label>
+        <label>Ville<input name="city"></label>
+        <label>Type<select name="type"><option>Licence</option><option>BUT</option><option>BTS</option><option>CPGE</option><option>École</option><option>Santé</option><option>Autre</option></select></label>
+        <label>Intérêt personnel<select name="interest"><option value="5">Très fort</option><option value="4">Fort</option><option value="3">À explorer</option><option value="2">Faible</option><option value="1">Très faible</option></select></label>
+        <label>Statut<select name="status"><option>À explorer</option><option>À comparer</option><option>JPO prévue</option><option>Vœu envisagé</option><option>Plan B</option></select></label>
+        <label class="full-field">Lien Parcoursup ou site officiel<input name="url" type="url" placeholder="https://…"></label>
+        <label class="full-field">Ce que je dois vérifier<textarea name="notes" placeholder="Critères, coût, logement, débouchés, programme…"></textarea></label>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-secondary" value="cancel">Annuler</button>
+        <button class="button button-primary" type="button" id="saveFormationButton">Ajouter au projet</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="resetDialog">
+    <form method="dialog" class="dialog-card small-dialog">
+      <span class="eyebrow">RÉINITIALISER</span>
+      <h2>Effacer le projet de cet appareil ?</h2>
+      <p>Cette action supprime les données locales de Cap Avenir. Exporte ton projet avant si tu souhaites le conserver.</p>
+      <div class="dialog-actions">
+        <button class="button button-secondary" value="cancel">Annuler</button>
+        <button class="button button-danger" type="button" id="confirmResetButton">Effacer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="footer">
+    <div class="shell footer-grid">
+      <div><strong>CAP AVENIR</strong><span>Lycée Ambroise Paré · 17 rue du Lycée · 53000 Laval</span></div>
+      <div><span>Un outil d’aide à la réflexion, pas un outil de décision automatique.</span><button class="footer-link" type="button" id="resetButton">Effacer mes données locales</button></div>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
