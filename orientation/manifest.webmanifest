@@ -1,0 +1,12 @@
+{
+  "name": "Cap Avenir · Lycée Ambroise Paré",
+  "short_name": "Cap Avenir",
+  "description": "Application d’orientation du lycée Ambroise Paré de Laval.",
+  "start_url": "./index.html#accueil",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#245B78",
+  "lang": "fr-FR",
+  "categories": ["education", "productivity"]
+}
