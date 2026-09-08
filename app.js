@@ -9,7 +9,7 @@ const rules = {
   adoption:{label:"Entretien obligatoire du parcours d’agrément pour adoption",type:"ASA de droit",detail:"Temps nécessaire, dans la limite de 5 autorisations par procédure."},
   grossesse_heure:{label:"Grossesse à compter du troisième mois",type:"ASA soumise aux nécessités de service",detail:"Jusqu’à 1 heure par jour, du premier jour du troisième mois jusqu’au congé de maternité."},
   garde_enfant:{label:"Soins ou garde momentanée d’un enfant",type:"ASA soumise aux nécessités de service",detail:"6 jours par année civile à temps plein et complet, proratisés selon la quotité ; contingent doublé si l’agent assume seul la charge. Pas de limite d’âge pour un enfant en situation de handicap."},
-  pma:{label:"Actes médicaux nécessaires d’un protocole de PMA",type:"Aménagement horaire avec récupération",detail:"Sous réserve des nécessités de service. Les heures sont récupérées selon les modalités autorisées."},
+  pma:{label:"Actes médicaux nécessaires d’un protocole de PMA",type:"ASA ou aménagement horaire — qualification à vérifier",detail:"Précisez si vous bénéficiez du protocole ou accompagnez votre conjoint, partenaire ou concubin. Une ASA peut relever de l’article L. 1225-16 ; le décret prévoit aussi des aménagements horaires. Aucune récupération ne doit être imposée au titre d’une ASA. Le report d’heures ne concerne que l’aménagement expressément retenu et autorisé."},
   preparation_naissance:{label:"Préparation à la naissance et à la parentalité",type:"Aménagement horaire avec récupération",detail:"Sous réserve des nécessités de service. Les heures sont récupérées selon les modalités autorisées."},
   parent_eleve:{label:"Réunion en qualité de représentant de parents d’élèves",type:"Aménagement horaire avec récupération",detail:"Pour les réunions énumérées par le décret, sous réserve des nécessités de service."},
   rentree:{label:"Rentrée scolaire d’un enfant en maternelle ou élémentaire",type:"Aménagement horaire avec récupération",detail:"Sous réserve des nécessités de service."},
@@ -192,7 +192,7 @@ function paperHtml(v){
       <div class="writing-area recovery-area"><b>Modalités de récupération expressément autorisées</b></div>
       <div class="signature approval-signature"><p><b>Fait à Laval, le :</b> <span class="line short-line"></span></p><p><b>Nom et signature du proviseur :</b></p></div>
     </section>
-  </div><p class="paper-footer">Demande à transmettre au lycée pour examen et décision.</p></article>`;
+  </div><p class="paper-footer">Document à transmettre au secrétariat de direction, auprès de Madame Moulin, au moins une semaine à l’avance, sauf urgence familiale ou médicale. Le téléchargement ne vaut ni transmission ni autorisation.</p></article>`;
 }
 function preparePreview(){
   $("preview-content").innerHTML=paperHtml(values());
@@ -216,6 +216,7 @@ async function buildWordFile(){
   const {Document,Packer,Paragraph,TextRun,Table,TableRow,AlignmentType,WidthType,PageBreak}=docx;
   const rows=[["Nom et prénom",`${v.nom} ${v.prenom}`],["Type de personnel",v.personnel_type==="enseignant"?"Personnel enseignant":"Autre personnel"],["Fonction / service",v.fonction],["Employeur",v.employeur],["Téléphone",v.telephone||"Non renseigné"],["Qualification",r.type],["Motif",r.label+(v.convenance_type?` — ${v.convenance_type}`:"")],["Règle applicable",r.detail],["Période",`Du ${fmtDate(v.date_debut)}${v.heure_debut?` à ${v.heure_debut}`:""} au ${fmtDate(v.date_fin)}${v.heure_fin?` à ${v.heure_fin}`:""}`],["Durée calculée",v.duree],["Organisation proposée",v.organisation||"Néant"],["Justificatifs transmis séparément",v.justificatifs||"Non précisés"]];
   if(v.motif_personnel)rows.push(["Précision du motif",v.motif_personnel]);
+  rows.push(["Transmission de la demande","Document signé à transmettre au secrétariat de direction, auprès de Madame Moulin, au moins une semaine à l’avance, sauf urgence familiale ou médicale. Le téléchargement ne vaut ni transmission ni autorisation."]);
   if(v.motif==="reserve_police")rows.push(["Statut pour la réserve",v.reserve_statut],["Année civile",v.reserve_annee],["Jours déjà demandés (hors demande actuelle)",v.reserve_demandes],["Dont jours déjà accordés",v.reserve_accordes],["Jours sollicités dans cette demande",v.reserve_jours],["Vérification du décompte","Déclaration de l’agent à vérifier par le service gestionnaire. Aucun solde de droits n’est certifié."]);
   if(["garde_enfant","annonce_enfant","deces_enfant"].includes(v.motif))rows.push(["Enfant",`${v.enfant_nom||"Non renseigné"} — né(e) le ${fmtDate(v.enfant_naissance)} — charge seul(e) : ${v.charge_seul?"oui":"non"} — handicap : ${v.enfant_handicap?"oui":"non"}`]);
   // Keep long documents readable; allow extra pages rather than shrinking to 5 pt.

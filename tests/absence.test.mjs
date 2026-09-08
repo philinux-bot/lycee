@@ -101,7 +101,7 @@ test('Word packing succeeds for simple, teacher, and 20-course requests',async()
   }
 });
 test('entrypoint assets exist and form IDs are unique',()=>{
-  for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g))assert.ok(existsSync(new URL(match[1],root)),match[1]);
+  for(const match of html.matchAll(/(?:src|href)="([^"#]+)"/g))if(!/^https?:\/\//.test(match[1]))assert.ok(existsSync(new URL(match[1],root)),match[1]);
   const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
   assert.match(html,/width=device-width/);assert.match(html,/responsive\.css/);
 });
