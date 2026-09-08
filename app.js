@@ -26,7 +26,6 @@ const leaveMotifs=new Set(["mariage","deces_conjoint","deces_parent","annonce_en
 const requiresCourseDetails=v=>v.personnel_type==="enseignant"&&Boolean(v.motif)&&!leaveMotifs.has(v.motif);
 const recoveryMotifs=new Set(["pma","preparation_naissance","parent_eleve","rentree","convenance"]);
 const childMotifs=new Set(["garde_enfant","annonce_enfant","deces_enfant"]);
-const regimeStart="2027-01-01";
 const summaryPanel=document.querySelector(".live-summary");
 summaryPanel.open=!window.matchMedia("(max-width: 900px)").matches;
 function fail(message,field){
@@ -71,7 +70,6 @@ function calculateDuration(){
   if(slots[type]){[$("heure_debut").value,$("heure_fin").value]=slots[type];$("heure_debut").readOnly=$("heure_fin").readOnly=true}else{$("heure_debut").readOnly=$("heure_fin").readOnly=false}
   $("heure_debut").required=$("heure_fin").required=type==="libre";
   $("hours-help").classList.toggle("hidden",type!=="libre");
-  $("regime-warning").classList.toggle("hidden",!$("date_debut").value||$("date_debut").value>=regimeStart);
   let result="";
   if(days){
     if(type==="journee")result=`${days} ${days>1?"journées":"journée"} complète${days>1?"s":""} (${days*2} demi-journées)`;
@@ -141,7 +139,6 @@ function validate(){
   if(!form.reportValidity()){ $("error-message").textContent="Veuillez compléter les champs obligatoires."; return false; }
   for(const id of ["nom","prenom","fonction"]){if(!$(id).value.trim())return fail("Veuillez renseigner votre nom, votre prénom et votre fonction.",$(id));}
   if($("date_fin").value<$("date_debut").value)return fail("La date de fin ne peut pas précéder la date de début.",$("date_fin"));
-  if($("date_debut").value<regimeStart)return fail("Cette version ne traite pas les périodes antérieures au 1er janvier 2027. Contactez le secrétariat pour utiliser les règles applicables à votre période.",$("date_debut"));
   if($("periode_type").value==="libre"&&!timeDuration($("heure_debut").value,$("heure_fin").value))return fail("Renseignez les deux horaires : l’heure de fin doit être postérieure à l’heure de début.",$("heure_fin"));
   if(!$("duree").value)return fail("La période ne comporte aucun jour ouvré calculable.",$("date_debut"));
   const v=values();
@@ -179,7 +176,7 @@ function paperHtml(v){
       <div class="writing-area recovery-area"><b>Modalités de récupération expressément autorisées</b></div>
       <div class="signature approval-signature"><p><b>Fait à Laval, le :</b> <span class="line short-line"></span></p><p><b>Nom et signature du proviseur :</b></p></div>
     </section>
-  </div><p class="paper-footer">Décret n° 2026-604 du 6 juillet 2026 — Application au 1er janvier 2027</p></article>`;
+  </div><p class="paper-footer">Demande à transmettre au lycée pour examen et décision.</p></article>`;
 }
 function preparePreview(){
   $("preview-content").innerHTML=paperHtml(values());

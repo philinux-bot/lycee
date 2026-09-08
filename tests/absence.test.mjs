@@ -45,8 +45,9 @@ test('working-day arithmetic agrees with daily counting',()=>{
     assert.equal(ctx.workingDays(start.toISOString().slice(0,10),end.toISOString().slice(0,10)),count);
   }
 });
-test('date order, weekends, and configured regime are guarded',()=>{
-  for(const overrides of [{date_fin:'2027-01-10'},{date_debut:'2027-01-09',date_fin:'2027-01-10'},{date_debut:'2026-12-31',date_fin:'2027-01-04'}])assert.equal(fixture(overrides).ctx.validate(),false);
+test('date order and weekends remain guarded; 2026 and cross-year requests are accepted',()=>{
+  for(const overrides of [{date_fin:'2027-01-10'},{date_debut:'2027-01-09',date_fin:'2027-01-10'}])assert.equal(fixture(overrides).ctx.validate(),false);
+  for(const motif of ['mariage','pacs'])for(const dates of [['2026-09-08','2026-09-08'],['2026-12-31','2027-01-04']])assert.equal(fixture({motif,date_debut:dates[0],date_fin:dates[1]}).ctx.validate(),true);
   assert.equal(fixture({date_debut:'2027-01-01',date_fin:'2027-01-01'}).ctx.validate(),true);
 });
 test('missing, reversed, and zero free hours are rejected',()=>{
