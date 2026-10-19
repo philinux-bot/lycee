@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#123354">
+  <meta name="description" content="Mon parcours, l’outil d’orientation du lycée Ambroise Paré à Laval. Seconde, première, terminale : explorer, comparer et préparer son projet à son rythme.">
+  <title>Mon parcours · Lycée Ambroise Paré</title>
+  <link rel="icon" type="image/jpeg" href="./assets/logo-rond.jpg">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header class="topbar">
+    <a class="identity" href="#accueil" aria-label="Mon parcours, lycée Ambroise Paré, accueil"><img class="header-logo" src="./assets/logo-horizontal.jpg" width="540" height="189" alt="Lycée Ambroise Paré · Laval"><span class="app-identity"><strong>Mon parcours</strong><small>Mon espace orientation</small></span></a>
+    <div class="top-actions"><span class="edition">Seconde · Première · Terminale</span><a class="btn primary" href="#projet">Mon carnet <span aria-hidden="true">↗</span></a></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <p class="eyebrow">Un choix à la fois</p>
+      <nav id="navigation" aria-label="Navigation principale"></nav>
+      <details class="mobile-navigation"><summary>Rubriques <span id="mobile-current">Accueil</span></summary><nav id="mobile-navigation" aria-label="Navigation sur téléphone"></nav></details>
+      <div class="sidebar-bottom"><img src="./assets/logo-rond.jpg" width="90" height="88" alt=""><p>Des repères pour avancer.<br>Des adultes pour en parler.</p><a href="#aide">Aide, sources et confidentialité</a><p class="ownership">Site propriété du<br><strong>Lycée Ambroise Paré</strong></p></div>
+    </aside>
+    <main id="main" tabindex="-1"><div id="view"><p class="loading">Ouverture de ton espace orientation…</p></div></main>
+  </div>
+  <dialog id="detail-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" aria-label="Fermer la fenêtre">×</button><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="print-root"></div>
+  <noscript>Active JavaScript pour utiliser les outils. Tu peux consulter <a href="https://www.parcoursup.gouv.fr/">Parcoursup</a>, <a href="https://www.onisep.fr/">Onisep</a> et <a href="https://ambroise-pare.paysdelaloire.e-lyco.fr/">le site du lycée</a>.</noscript>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
